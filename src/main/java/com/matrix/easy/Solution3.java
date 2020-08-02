@@ -53,7 +53,6 @@ public class Solution3 {
                 continue;
             }
             map.put(key,i);
-
         }
         return max;
     }
@@ -61,10 +60,7 @@ public class Solution3 {
     public static void main(String[] args) {
         //String str = "pwwkew";
         String str ="pwwkew";
-
         int result = Solution3.lengthOfLongestSubstring(str);
-
             System.out.print(result);
-
     }
 }

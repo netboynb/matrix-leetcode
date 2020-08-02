@@ -25,13 +25,49 @@ package com.matrix.easy;
  *
  * 则中位数是 (2 + 3)/2 = 2.5
  *
- * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/median-of-two-sorted-arrays
- * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ *
  */
 public class Solution4 {
 
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int l1 = nums1.length;
+        int l2 = nums2.length;
 
+        if(l1%2 == 0 && l2%2 ==0){
+            if(l1 == 0 &&  l2 != 0){
+                int r = l2/2;
+                int l = r-1;
+                return (nums2[r] + nums2[l])/2.0;
+            }else if(l2 == 0 &&  l1 != 0) {
+                return findMedianSortedArrays(nums2,nums1);
+            }else {
+                int ll1 = nums1[l1/2-1];
+                int ll2 = nums2[l2/2-1];
+                int rr1 = nums1[l1/2];
+                int rr2 = nums2[l2/2];
+                int min = ll1 <= ll2 ? ll2 : ll1;
+                int max = rr1 <= rr2 ? rr1: rr2;
+                return (min+max) / 2.0;
+            }
+
+        }else if(l1%2 != 0 && l2%2 ==0){
+            int min1 = nums1[(l1-1)/2];
+            if(l2 == 0){
+                return min1;
+            }
+            int l = nums2[l2/2-1];
+            int r = nums2[l2/2];
+            if(min1 >=l && min1 <= r){
+                return min1;
+            }else if(min1 < l || min1 > r){
+                return (l+r)/2.0;
+            }
+        }else if(l1%2 == 0 && l2%2 !=0){
+            return findMedianSortedArrays(nums2,nums1);
+        }else if (l1%2 != 0 && l2%2 !=0){
+            return (nums1[(l1-1)/2] + nums2[(l2-1)/2]) /2.0;
+        }
+        return 0.0;
     }
 }
